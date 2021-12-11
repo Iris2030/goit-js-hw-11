@@ -6,24 +6,22 @@ export default class ApiSearch{
         this.page = 1
     }
 
-    fetchTotalHits() {
-         return fetch(`${BASE_URL}&q=${this.searchedItems}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`)
-            .then(response => response.json())
-            .then(data => {
-                               
-                return data.totalHits
-                })
+    async fetchTotalHits() {
+        const fetchTotalHits = await fetch(`${BASE_URL}&q=${this.searchedItems}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`)
+        const totalHitsJson = await fetchTotalHits.json()
+        const totalHits = await  totalHitsJson.totalHits
+        return  totalHits
     }
     
-    fetchPics() {
-      
-        return fetch(`${BASE_URL}&q=${this.searchedItems}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`)
-            .then(response => response.json())
-            .then(data => {
-                this.page += 1
-                
-                return data.hits
-                })
+   async fetchPics() {
+        const fetchHits = await fetch(`${BASE_URL}&q=${this.searchedItems}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`)
+       const hitsJson = await fetchHits.json()
+       const hits = await hitsJson.hits
+       if (hits) {
+           this.page += 1 
+       }
+       return hits
+
     }
   
     resetItems() {

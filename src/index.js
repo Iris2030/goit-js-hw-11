@@ -24,12 +24,12 @@ function onFormSubmit(event) {
     apiSearch.searchedItems = event.currentTarget.elements.searchQuery.value
         
  
-    apiSearch.fetchTotalHits().then(totalHitsNotification)        
+    apiSearch.fetchTotalHits().then(totalHitsNotification).catch((error) => { console.log(error) })      
     loadMoreBtn.classList.remove('is-hidden')
     clearGallery()
     apiSearch.resetItems()
         
-    fetchAndRender().catch(error => { console.log(error) }) 
+    fetchAndRender().catch((error) => { console.log(error) }) 
 }
 
  
