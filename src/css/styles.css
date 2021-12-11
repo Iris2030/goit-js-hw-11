@@ -98,3 +98,8 @@ img {
   color: #212121;
   height: 60px;
 }
+
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+}
