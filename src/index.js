@@ -9,7 +9,8 @@ import "simplelightbox/dist/simple-lightbox.min.css"
 const apiSearch = new ApiSearch
 const formEl = document.querySelector('.search-form')
 const gallery = document.querySelector('.gallery') 
-const loadMoreBtn = document.querySelector('.load-more') 
+const loadMoreBtn = document.querySelector('.load-more')
+ 
 
 
 loadMoreBtn.classList.add('is-hidden')
@@ -29,7 +30,6 @@ function onFormSubmit(event) {
     apiSearch.resetItems()
         
     fetchAndRender()
-        // .catch((error) => { console.log(error) })
 }
 
  
@@ -59,11 +59,13 @@ function totalHitsNotification(totalHits) {
 
  async function fetchAndRender(){
      loadMoreBtn.setAttribute('disabled', true)
+     loadMoreBtn.textContent = "Loading..."
      try {
          const pics = await apiSearch.fetchPics()
          const renderPics = await renderMarkup(pics) 
      if (!renderPics) {
-         loadMoreBtn.removeAttribute('disabled',true) 
+         loadMoreBtn.removeAttribute('disabled', true)
+          loadMoreBtn.textContent = "Load more"
          }
      } catch(error) {
         console.log(error);
@@ -72,8 +74,9 @@ function totalHitsNotification(totalHits) {
 }
 
 function onLoadMore(event) {
+    console.log(event.target);
     fetchAndRender()
-    // console.log(event.currentTarget.elements);
+ 
 }
  
  
