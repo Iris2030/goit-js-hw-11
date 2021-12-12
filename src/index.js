@@ -24,8 +24,8 @@ function onFormSubmit(event) {
     apiSearch.searchedItems = event.currentTarget.elements.searchQuery.value
         
  
-    apiSearch.fetchTotalHits().then(totalHitsNotification).catch((error) => { console.log(error) })      
-    loadMoreBtn.classList.remove('is-hidden')
+    apiSearch.fetchTotalHits().then(totalHitsNotification).catch((error) => { console.log(error) })
+  
     clearGallery()
     apiSearch.resetItems()
         
@@ -52,8 +52,11 @@ function clearGallery() {
  
 function totalHitsNotification(totalHits) {
     if (totalHits > 0) {
-            Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`)
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`)
+        
+    loadMoreBtn.classList.remove('is-hidden')
     }
+   
   
 }
 
