@@ -1,6 +1,5 @@
 import './css/styles.css';
 import Notiflix from 'notiflix'
-const axios = require('axios').default;
 import template from './template.hbs'
 import ApiSearch from './fetchPics.js'
 import SimpleLightbox from "simplelightbox"
@@ -16,7 +15,7 @@ const loadMoreBtn = document.querySelector('.load-more')
 loadMoreBtn.classList.add('is-hidden')
 
 formEl.addEventListener('submit', onFormSubmit)
-loadMoreBtn.addEventListener('click',fetchAndRender)
+loadMoreBtn.addEventListener('click', onLoadMore)
 
  
 function onFormSubmit(event) {
@@ -68,7 +67,13 @@ function totalHitsNotification(totalHits) {
          }
      } catch(error) {
         console.log(error);
-     }          
+     }
+  
+}
+
+function onLoadMore(event) {
+    fetchAndRender()
+    // console.log(event.currentTarget.elements);
 }
  
  
