@@ -11,7 +11,7 @@ const formEl = document.querySelector('.search-form')
 const gallery = document.querySelector('.gallery') 
 const loadMoreBtn = document.querySelector('.load-more')
  
-
+ const galA = document.querySelector('.gallery a')
 
 loadMoreBtn.classList.add('is-hidden')
 
@@ -30,6 +30,7 @@ function onFormSubmit(event) {
     apiSearch.resetItems()
         
     fetchAndRender()
+     console.log(galA);
 }
 
  
@@ -77,7 +78,8 @@ function totalHitsNotification(totalHits) {
   
 }
  
- gallery.addEventListener("click", onImgClick)
+gallery.addEventListener("click", onImgClick)
+
  
 function onImgClick(event) {
     event.preventDefault()
