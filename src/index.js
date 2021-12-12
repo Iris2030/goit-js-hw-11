@@ -13,6 +13,7 @@ const gallery = document.querySelector('.gallery')
 const loadMoreBtn = document.querySelector('.load-more') 
 
 
+
 loadMoreBtn.classList.add('is-hidden')
 
 formEl.addEventListener('submit', onFormSubmit)
@@ -23,7 +24,6 @@ function onFormSubmit(event) {
     event.preventDefault()
     apiSearch.searchedItems = event.currentTarget.elements.searchQuery.value
         
- 
     apiSearch.fetchTotalHits().then(totalHitsNotification).catch((error) => { console.log(error) })      
     loadMoreBtn.classList.remove('is-hidden')
     clearGallery()
@@ -65,5 +65,7 @@ loadMoreBtn.setAttribute('disabled',true)
     })
 }
  
+ 
 
-const lightbox = new SimpleLightbox('.gallery a') 
+ 
+     const lightbox = new SimpleLightbox('.gallery a') 
