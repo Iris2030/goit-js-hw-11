@@ -16,7 +16,7 @@ const loadMoreBtn = document.querySelector('.load-more')
 loadMoreBtn.classList.add('is-hidden')
 
 formEl.addEventListener('submit', onFormSubmit)
-loadMoreBtn.addEventListener('click', onLoadMore)
+loadMoreBtn.addEventListener('click', fetchAndRender)
 
  
 function onFormSubmit(event) {
@@ -44,6 +44,7 @@ function renderMarkup(item) {
             Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`)
           loadMoreBtn.classList.add('is-hidden')
     }
+
    }
 
 function clearGallery() {
@@ -75,13 +76,12 @@ function totalHitsNotification(totalHits) {
      }
   
 }
-
-function onLoadMore(event) {
-    console.log(event.target);
-    fetchAndRender()
  
+ gallery.addEventListener("click", onImgClick)
+ 
+function onImgClick(event) {
+    event.preventDefault()
 }
- 
- 
-    const lightbox = new SimpleLightbox('.gallery a') 
+  
+   const lightbox = new SimpleLightbox('.gallery a',{captions: true,captionPosition : "bottom",captionDelay: 250,captionType : "attr", captionsData : "alt"}) 
  
