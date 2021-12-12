@@ -13,7 +13,6 @@ const gallery = document.querySelector('.gallery')
 const loadMoreBtn = document.querySelector('.load-more') 
 
 
-
 loadMoreBtn.classList.add('is-hidden')
 
 formEl.addEventListener('submit', onFormSubmit)
@@ -24,12 +23,14 @@ function onFormSubmit(event) {
     event.preventDefault()
     apiSearch.searchedItems = event.currentTarget.elements.searchQuery.value
         
+ 
     apiSearch.fetchTotalHits().then(totalHitsNotification).catch((error) => { console.log(error) })      
     loadMoreBtn.classList.remove('is-hidden')
     clearGallery()
     apiSearch.resetItems()
         
-    fetchAndRender().catch((error) => { console.log(error) }) 
+    fetchAndRender()
+        // .catch((error) => { console.log(error) })
 }
 
  
@@ -57,15 +58,19 @@ function totalHitsNotification(totalHits) {
   
 }
 
-function fetchAndRender(){
-loadMoreBtn.setAttribute('disabled',true) 
-    apiSearch.fetchPics().then(data => {
-            renderMarkup(data)
-            loadMoreBtn.removeAttribute('disabled',true) 
-    })
+ async function fetchAndRender(){
+     loadMoreBtn.setAttribute('disabled', true)
+     try {
+         const pics = await apiSearch.fetchPics()
+         const renderPics = await renderMarkup(pics) 
+     if (!renderPics) {
+         loadMoreBtn.removeAttribute('disabled',true) 
+         }
+     } catch(error) {
+        console.log(error);
+     }          
 }
  
  
-
+    const lightbox = new SimpleLightbox('.gallery a') 
  
-     const lightbox = new SimpleLightbox('.gallery a') 
