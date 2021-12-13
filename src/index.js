@@ -6,7 +6,7 @@ import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css"
  
  
-const apiSearch = new ApiSearch
+const apiSearch = new ApiSearch()
 const formEl = document.querySelector('.search-form')
 const gallery = document.querySelector('.gallery') 
 const loadMoreBtn = document.querySelector('.load-more')
@@ -24,7 +24,7 @@ function onFormSubmit(event) {
     apiSearch.searchedItems = event.currentTarget.elements.searchQuery.value
         
  
-    apiSearch.fetchTotalHits().then(totalHitsNotification).catch((error) => { console.log(error) })
+    apiSearch.fetchTotalHits().then(totalHitsNotification).catch(error => { console.log(error) })
   
     clearGallery()
     apiSearch.resetItems()
@@ -67,7 +67,8 @@ function totalHitsNotification(totalHits) {
      loadMoreBtn.textContent = "Loading..."
      try {
          const pics = await apiSearch.fetchPics()
-         const renderPics = await renderMarkup(pics) 
+         const renderPics = await renderMarkup(pics)
+          new SimpleLightbox('.gallery .photo-card a')
      if (!renderPics) {
          loadMoreBtn.removeAttribute('disabled', true)
           loadMoreBtn.textContent = "Load more"
@@ -85,5 +86,18 @@ function onImgClick(event) {
     event.preventDefault()
 }
   
-   const lightbox = new SimpleLightbox('.gallery a',{captions: true,captionPosition : "bottom",captionDelay: 250,captionType : "attr", captionsData : "alt"}) 
+  
  
+
+   
+   
+// function getBoundingClientRect() {
+//     window.scrollBy({
+//   top: cardHeight * 2,
+//   behavior: "smooth",
+// });
+//  }
+
+//   const { height: cardHeight } = document
+//  .querySelector(".gallery")
+//  .firstElementChild.getBoundingClientRect();
