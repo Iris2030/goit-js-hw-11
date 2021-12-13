@@ -120,7 +120,7 @@ function totalHitsNotification(totalHits) {
          .firstElementChild.getBoundingClientRect();
  
          window.scrollBy({
-         top: cardHeight  * 1.9,
+         top: cardHeight  * 2.9,
          behavior: "smooth",
  
  })
