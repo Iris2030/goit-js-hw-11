@@ -16,8 +16,12 @@ const loadMoreBtn = document.querySelector('.load-more')
 loadMoreBtn.classList.add('is-hidden')
 
 formEl.addEventListener('submit', onFormSubmit)
-loadMoreBtn.addEventListener('click', fetchAndRender)
+loadMoreBtn.addEventListener('click', fetchAndRenderSmooth)
+gallery.addEventListener("click", onImgClick)
 
+function onImgClick(event) {
+    event.preventDefault()
+}
  
 function onFormSubmit(event) {
     event.preventDefault()
@@ -45,22 +49,22 @@ function renderMarkup(item) {
             Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`)
           loadMoreBtn.classList.add('is-hidden')
     }
-
-   }
+}
+   
 
 function clearGallery() {
     gallery.innerHTML = ''
 }
+
  
 function totalHitsNotification(totalHits) {
     if (totalHits > 0) {
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`)
         
     loadMoreBtn.classList.remove('is-hidden')
-    }
-   
-  
+    } 
 }
+
 
  async function fetchAndRender(){
      loadMoreBtn.setAttribute('disabled', true)
@@ -68,7 +72,8 @@ function totalHitsNotification(totalHits) {
      try {
          const pics = await apiSearch.fetchPics()
          const renderPics = await renderMarkup(pics)
-          new SimpleLightbox('.gallery .photo-card a')
+         new SimpleLightbox('.gallery a').refresh()
+ 
      if (!renderPics) {
          loadMoreBtn.removeAttribute('disabled', true)
           loadMoreBtn.textContent = "Load more"
@@ -79,25 +84,37 @@ function totalHitsNotification(totalHits) {
   
 }
  
-gallery.addEventListener("click", onImgClick)
 
- 
-function onImgClick(event) {
-    event.preventDefault()
+ async function fetchAndRenderSmooth(){
+     loadMoreBtn.setAttribute('disabled', true)
+     loadMoreBtn.textContent = "Loading..."
+     try {
+         const pics = await apiSearch.fetchPics()
+         const renderPics = await renderMarkup(pics)
+         new SimpleLightbox('.gallery a').refresh()
+            
+   smoothScroll()
+
+     if (!renderPics) {
+         loadMoreBtn.removeAttribute('disabled', true)
+          loadMoreBtn.textContent = "Load more"
+         }
+     } catch(error) {
+        console.log(error);
+     }
 }
-  
-  
  
 
-   
-   
-// function getBoundingClientRect() {
-//     window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: "smooth",
-// });
-//  }
 
-//   const { height: cardHeight } = document
-//  .querySelector(".gallery")
-//  .firstElementChild.getBoundingClientRect();
+ function smoothScroll(){
+ 
+        const { height: cardHeight } = document
+         .querySelector(".gallery")
+         .firstElementChild.getBoundingClientRect();
+ 
+         window.scrollBy({
+         top: cardHeight  * 1.5,
+         behavior: "smooth",
+ 
+ })
+} 
