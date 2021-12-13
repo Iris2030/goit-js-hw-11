@@ -72,9 +72,10 @@ function totalHitsNotification(totalHits) {
      try {
          const pics = await apiSearch.fetchPics()
          const renderPics = await renderMarkup(pics)
-         new SimpleLightbox('.gallery a').refresh()
- 
-     if (!renderPics) {
+         
+         const lightbox = new SimpleLightbox('.gallery .photo-card a');
+        //  lightbox.refresh()
+             if (!renderPics) {
          loadMoreBtn.removeAttribute('disabled', true)
           loadMoreBtn.textContent = "Load more"
          }
@@ -91,13 +92,14 @@ function totalHitsNotification(totalHits) {
      try {
          const pics = await apiSearch.fetchPics()
          const renderPics = await renderMarkup(pics)
-         new SimpleLightbox('.gallery a').refresh()
+         const lightbox = new SimpleLightbox('.gallery .photo-card a');
+         lightbox.refresh()      
             
    smoothScroll()
 
      if (!renderPics) {
          loadMoreBtn.removeAttribute('disabled', true)
-          loadMoreBtn.textContent = "Load more"
+         loadMoreBtn.textContent = "Load more"
          }
      } catch(error) {
         console.log(error);
@@ -113,8 +115,9 @@ function totalHitsNotification(totalHits) {
          .firstElementChild.getBoundingClientRect();
  
          window.scrollBy({
-         top: cardHeight  * 1.5,
+         top: cardHeight  * 2,
          behavior: "smooth",
  
  })
-} 
+}
+ 
