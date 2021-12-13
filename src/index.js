@@ -89,12 +89,16 @@ function totalHitsNotification(totalHits) {
  async function fetchAndRenderSmooth(){
      loadMoreBtn.setAttribute('disabled', true)
      loadMoreBtn.textContent = "Loading..."
+
+        
+         
      try {
          const pics = await apiSearch.fetchPics()
          const renderPics = await renderMarkup(pics)
-         const lightbox = new SimpleLightbox('.gallery .photo-card a');
-         lightbox.refresh()      
-            
+
+        const lightbox = new SimpleLightbox('.gallery .photo-card a');
+         lightbox.refresh()
+         
    smoothScroll()
 
      if (!renderPics) {
@@ -104,6 +108,7 @@ function totalHitsNotification(totalHits) {
      } catch(error) {
         console.log(error);
      }
+         
 }
  
 
@@ -115,9 +120,9 @@ function totalHitsNotification(totalHits) {
          .firstElementChild.getBoundingClientRect();
  
          window.scrollBy({
-         top: cardHeight  * 2,
+         top: cardHeight  * 1.9,
          behavior: "smooth",
  
  })
 }
- 
+   
