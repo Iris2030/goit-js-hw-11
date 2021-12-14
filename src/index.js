@@ -26,14 +26,17 @@ function onImgClick(event) {
 function onFormSubmit(event) {
     event.preventDefault()
     apiSearch.searchedItems = event.currentTarget.elements.searchQuery.value
+    let trimedSearchedItems = apiSearch.searchedItems.trim()
         
- 
-    apiSearch.fetchTotalHits().then(totalHitsNotification).catch(error => { console.log(error) })
+    if (trimedSearchedItems) {
+       apiSearch.fetchTotalHits().then(totalHitsNotification).catch(error => { Notiflix.Notify.failure(error)})
   
     clearGallery()
     apiSearch.resetItems()
         
     fetchAndRender()
+ }
+  
     
 }
 
